@@ -6,3 +6,4 @@ torch
 torchvision
 transformers
 sentencepiece
+python-multipart
