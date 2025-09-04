@@ -8,7 +8,7 @@ from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
+from fastapi import Body
 from PIL import Image
 import pytesseract
 
@@ -174,8 +174,8 @@ def detect_toxic_text_score(text: str) -> float:
 async def analyze(
     text: Optional[str] = Form(None),
     file: Optional[UploadFile] = File(None),
-    json_payload: Optional[AnalyzeRequest] = None,
-    debug: Optional[int] = Query(0, description="set debug=1 to return full raw analysis")
+    json_payload: Optional[AnalyzeRequest] = Body(None),
+    debug: Optional[int] = Query(0)
 ):
     """
     Accepts:
@@ -386,3 +386,4 @@ async def analyze(
         return JSONResponse(content=full)
     else:
         return JSONResponse(content=summary_view)
+
